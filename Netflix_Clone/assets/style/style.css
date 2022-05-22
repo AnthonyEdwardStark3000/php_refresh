@@ -1,0 +1,85 @@
+*{
+    border: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+    box-sizing: border-box;
+}
+.signInContainer{
+    background-color: #efefee;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.column{
+    background-color: #fff;
+    min-height: 300px;
+    max-height: 100%;
+    width: 450px;
+    box-shadow: rgba(0,0,0, 0.1) 0 1px 2px;
+    padding: 20px 35px;
+    overflow-y: auto;
+}
+.column form {
+    display: flex;
+    flex-direction: column;
+    padding-top: 24px;
+}
+.column form input[type="text"], input[type="email"],input[type="password"] {
+    font-size: 2vh;
+    border: none;
+    border-bottom: 1px solid #dedede;
+    margin: 10px;
+}
+
+.column form input[type="submit"]{
+    background-color: #4285f4;
+    color: #fff;
+    height: 36px;
+    width: 88px;
+    border: none;
+    border-radius: 3px;
+    font-size: 2.5vh;
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.column .header{
+    padding: 20px 0;
+}
+
+.column h3{
+    font-size: 28px;
+    font-weight: bolder;
+    line-height: 32px;
+    margin: 0;
+    padding-top: 16px;
+    color: #000;
+}
+
+.column .header span{
+    font-size: 14px;
+}
+
+.column .header img{
+    width: 160px;
+}
+.signInMessage{
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.signupMessage{
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+}
+.errorMessage{
+    color: red;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+}
