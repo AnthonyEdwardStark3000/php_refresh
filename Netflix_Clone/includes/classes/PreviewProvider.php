@@ -11,6 +11,13 @@
             if($entity == null){
                 $entity = $this->getRandomEntity();
             }
+
+            $id = $entity->getId();
+            $name = $entity->getName();
+            $preview = $entity->getPreview();
+            $thumbnail = $entity->getThumbnail();
+
+            echo "<img src='$thumbnail'>";
         }
 
         private function getRandomEntity(){
@@ -18,7 +25,8 @@
            $query->execute();
            
            $row = $query->fetch(PDO::FETCH_ASSOC);
-           echo $row["name"];
+        //    echo $row["name"];
+        return new Entity($this->con, $row);
         }
     }
 ?>
