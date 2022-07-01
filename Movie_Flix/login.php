@@ -1,6 +1,28 @@
 <?php
+
+require_once("./includes/config.php");
+require_once("./includes/classes/Account.php");
+require_once("./includes/classes/FormSanitizer.php");
+require_once("./includes/classes/Constants.php");
+
+$account = new Account($con);
+
+
     if(isset($_POST["submitButton"])){
-        $firstName = $_POST[""]
+        $userName = FormSanitizer::sanitizeFormUserName($_POST["userName"]);
+        $password = FormSanitizer::sanitizeFormPassword($_POST["password"]);
+        $success = $account->login($userName,$password);
+        if($success){
+            //store session
+            $_SESSION["userLoggedIn"] = $userName;
+            header("Location: index.php");
+        }
+
+    }
+    function getInputValue($name){
+        if(isset($_POST[$name])){
+            echo $_POST[$name];
+        }
     }
 ?>
 
@@ -19,7 +41,13 @@
                 <span>to continue the services from Movies Flix</span>
             </div>
             <form method="POST">
-                <input type="text" name="userName" placeholder="User Name" required>
+            <?php
+                echo $account->getError(Constants::$loginFailed);
+                ?>
+                <input type="text" name="userName" placeholder="User Name" value="<?php getInputValue("userName");?>" required>
+            <?php
+                echo $account->getError(Constants::$loginFailed);
+                ?>
                 <input type="password" name="password" placeholder="Password" required>
                 <input type="submit" name="submitButton" value="SUBMIT">
             </form>
