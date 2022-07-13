@@ -40,12 +40,20 @@ class PreviewProvider{
         </div>";
     }
 
-    private function getRandomEntity(){
-        $query = $this-> con ->prepare("SELECT * FROM entities ORDER BY RAND() LIMIT 1");
-        $query -> execute();
+    public function createEntityPreviewSquare($entity){
+        $id = $entity->getId();
+        $thumbnail = $entity->getThumbnail();
+        $name = $entity->getName();
+        return "<a href='entity.php?id=$id'>
+            <div class='previewContainer small'>
+                <img src='$thumbnail' title='$name'></img>
+            </div>
+        </a>";
+    }
 
-        $row = $query->fetch(PDO::FETCH_ASSOC);
-        return new Entity ($this->con, $row);
+    private function getRandomEntity(){
+        $entity = EntityProvider::getEntities($this->con,null,1);
+        return $entity[0];
     }
 }
 ?>
