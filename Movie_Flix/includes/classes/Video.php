@@ -1,14 +1,15 @@
 <?php
-class Video{
-
+class Video {
     private $con, $sqlData, $entity;
-    public function __construct($con, $input){
+
+    public function __construct($con, $input) {
         $this->con = $con;
-        if(is_array($input)){
+
+        if(is_array($input)) {
             $this->sqlData = $input;
         }
-        else{
-            $query = $this->con->prepare("SELECT * FROM entities WHERE id=:id");
+        else {
+            $query = $this->con->prepare("SELECT * FROM videos WHERE id=:id");
             $query->bindValue(":id", $input);
             $query->execute();
 
@@ -18,29 +19,34 @@ class Video{
         $this->entity = new Entity($con, $this->sqlData["entityId"]);
     }
 
-    public function getId(){
+    public function getId() {
         return $this->sqlData["id"];
     }
 
-    public function getTitle(){
+    public function getTitle() {
         return $this->sqlData["title"];
     }
 
-    public function getDescription(){
+    public function getDescription() {
         return $this->sqlData["description"];
     }
 
-    public function getFilePath(){
+    public function getFilePath() {
         return $this->sqlData["filePath"];
     }
 
-    public function getThumbnail(){
+    public function getThumbnail() {
         return $this->entity->getThumbnail();
     }
 
-    public function getEpisodeNumber(){
+    public function getEpisodeNumber() {
         return $this->sqlData["episode"];
     }
 
+    public function incrementViews() {
+        $query = $this->con->prepare("UPDATE videos SET views=views+1 WHERE id=:id");
+        $query->bindValue(":id", $this->getId());
+        $query->execute();
+    }
 }
 ?>
