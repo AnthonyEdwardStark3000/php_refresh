@@ -30,6 +30,7 @@ function startHideTimer() {
 
 function initVideo(videoId, username) {
     startHideTimer();
+    setStartTime(videoId, username);
     updateProgressTimer(videoId, username);
 }
 
@@ -73,3 +74,32 @@ function setFinished(videoId, username) {
         }
     })
 }
+
+function setStartTime(videoId, username) {
+    $.post("ajax/getProgress.php", { videoId: videoId, username: username }, function(data) {
+       if(isNaN(data)){
+        alert(data);
+        return;
+       }
+
+       $("video").on("canplay", function(){
+        this.currentTime = data;
+        $("video").off("canplay");
+       });
+    })
+}
+
+function restartVideo(){
+    $("video")[0].currentTime = 0;
+    $("video")[0].play();
+    $(".upNext").fadeOut();
+}
+
+function watchVideo(videoId){
+    window.location.href = "watch.php?id="+videoId;
+}
+
+function showUpNext(){
+    $(".upNext").fadeIn();
+}
+
